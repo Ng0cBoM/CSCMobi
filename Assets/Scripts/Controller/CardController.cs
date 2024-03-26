@@ -11,7 +11,7 @@ public class CardController : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (Clickable)
+        if (Clickable && GameManager.I.State == GameState.Playing)
         {
             SignalBus.I.FireSignal<AddCardIntoQueue>(new AddCardIntoQueue(this));
             SignalBus.I.FireSignal<ReleaseCardFromBoard>(new ReleaseCardFromBoard(this));

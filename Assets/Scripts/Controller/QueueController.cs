@@ -89,6 +89,7 @@ public class QueueController : MonoBehaviour
     {
         if (CardInQueue.Count == DataManager.I.GameConfig.NumberOfQueueSlot)
         {
+            GameManager.I.SwitchGameState(GameState.Stop);
             UIManager.I.ShowMenu<GameOverUI>();
         };
     }
