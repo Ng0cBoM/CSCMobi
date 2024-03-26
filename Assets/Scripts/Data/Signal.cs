@@ -21,3 +21,6 @@ public class ReleaseCardFromBoard : Signal
         this.cardController = cardController;
     }
 }
+
+public class Reset : Signal
+{ }

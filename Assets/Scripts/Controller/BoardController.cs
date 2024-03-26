@@ -9,11 +9,22 @@ public class BoardController : Singleton<BoardController>
     private void Awake()
     {
         SignalBus.I.Register<ReleaseCardFromBoard>(ReleseCardAndSetupCardClickAble);
+        SignalBus.I.Register<Reset>(ResetCardList);
     }
 
     private void OnDestroy()
     {
         SignalBus.I.Unregister<ReleaseCardFromBoard>(ReleseCardAndSetupCardClickAble);
+        SignalBus.I.Unregister<Reset>(ResetCardList);
+    }
+
+    private void ResetCardList(Reset signal)
+    {
+        foreach (CardController card in CardList)
+        {
+            Destroy(card.gameObject);
+        }
+        CardList.Clear();
     }
 
     private void ReleseCardAndSetupCardClickAble(ReleaseCardFromBoard signal)
@@ -21,7 +32,7 @@ public class BoardController : Singleton<BoardController>
         CardList.Remove(signal.cardController);
         if (CardList.Count == 0)
         {
-            Debug.Log("GameWin");
+            GameManager.I.IncreLevel();
             return;
         }
         SetupCardClickAble();

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class gameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private int currentLevel = 0;
     [SerializeField] private Transform _board;
@@ -12,13 +12,23 @@ public class gameManager : MonoBehaviour
     private void Start()
     {
         _gameConfig = DataManager.I.GameConfig;
-        LoadLevel();
+        UIManager.I.ShowMenu<MainUI>();
     }
 
-    private void LoadLevel()
+    public void LoadLevel()
     {
+        SignalBus.I.FireSignal<Reset>(new Reset());
         Level levelData = _gameConfig.Levels[currentLevel];
         SpawnCardBaseOnLevelData(levelData);
+    }
+
+    public void IncreLevel()
+    {
+        UIManager.I.ShowMenu<VictoryUI>();
+        if (currentLevel < _gameConfig.Levels.Count - 1)
+            currentLevel++;
+        else
+            currentLevel = 0;
     }
 
     private void SpawnCardBaseOnLevelData(Level levelData)

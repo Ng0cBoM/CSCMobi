@@ -10,11 +10,13 @@ public class QueueController : MonoBehaviour
     private void Awake()
     {
         SignalBus.I.Register<AddCardIntoQueue>(AddCardIntoQueue);
+        SignalBus.I.Register<Reset>(ResetQueue);
     }
 
     private void OnDestroy()
     {
         SignalBus.I.Unregister<AddCardIntoQueue>(AddCardIntoQueue);
+        SignalBus.I.Unregister<Reset>(ResetQueue);
     }
 
     public void AddCardIntoQueue(AddCardIntoQueue signal)
@@ -74,11 +76,20 @@ public class QueueController : MonoBehaviour
         CheckGameOver();
     }
 
+    private void ResetQueue(Reset signal)
+    {
+        foreach (CardController card in CardInQueue)
+        {
+            Destroy(card.gameObject);
+        }
+        CardInQueue.Clear();
+    }
+
     private void CheckGameOver()
     {
         if (CardInQueue.Count == DataManager.I.GameConfig.NumberOfQueueSlot)
         {
-            Debug.Log("GameOver");
+            UIManager.I.ShowMenu<GameOverUI>();
         };
     }
 }
