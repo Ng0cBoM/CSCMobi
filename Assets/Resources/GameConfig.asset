@@ -16,7 +16,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0e732d29ee703bc4da0c19a5bec8567c, type: 2}
   - {fileID: 11400000, guid: 83cd6e188e2e7b343aa6d038643fbf8d, type: 2}
   - {fileID: 11400000, guid: 9ec4d9190c632eb4badd2000c089614c, type: 2}
-  NumberOfQueueSlot: 0
+  NumberOfQueueSlot: 7
   Cards:
   - {fileID: 8366008883344551748, guid: b5641ceb81facad41931d83afb10d8fa, type: 3}
   - {fileID: 8366008883344551748, guid: 514b27633121fcf4eb2b8c0c9e53cdb3, type: 3}
